@@ -2,7 +2,6 @@
   <div class="card" style="width: 40rem;">
     <div class="card-body">
 
-      {# Картинка отображается ТОЛЬКО если она есть #}
       {% if post.image %}
         <img
           class="border-3 rounded img-fluid img-thumbnail mb-2 mx-auto d-block"
@@ -17,17 +16,6 @@
 
       <h6 class="card-subtitle mb-2 text-muted">
         <small>
-
-          {% if not post.is_published %}
-            <span class="text-danger">
-              Пост снят с публикации админом
-            </span><br>
-          {% elif not post.category.is_published %}
-            <span class="text-danger">
-              Выбранная категория снята с публикации админом
-            </span><br>
-          {% endif %}
-
           {{ post.pub_date|date:"d E Y, H:i" }} |
           {% if post.location and post.location.is_published %}
             {{ post.location.name }}
@@ -43,7 +31,6 @@
           </a>
           в категории
           {% include "includes/category_link.html" %}
-
         </small>
       </h6>
 
@@ -58,7 +45,7 @@
 
       <a href="{% url 'blog:post_detail' post.id %}"
          class="card-link text-muted">
-        Комментарии ({{ post.comment_set.count }})
+        Комментарии ({{ post.comment_count }})
       </a>
 
     </div>
